@@ -9,4 +9,16 @@ public class JoystickProducer extends Thread{
     public JoystickProducer (int dayDuration){
         this.dayDuration = dayDuration;
     }
+    
+    public void run(){
+        while(true){
+            try{
+                Thread.sleep(Math.round((dayDuration*1000)/dailyProduction));
+                Main.Joysticks++;
+                System.out.println("Joystick" + Main.Joysticks);
+            }catch(Exception e){
+                System.out.println("Joystick pelo bola");
+            }
+        }
+    }
 }
