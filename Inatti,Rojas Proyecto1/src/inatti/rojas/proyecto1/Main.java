@@ -64,6 +64,7 @@ public class Main {
         screen.start();
         joystick.start();
         sd.start();
+        ensamblador.start();
         
     }
     
