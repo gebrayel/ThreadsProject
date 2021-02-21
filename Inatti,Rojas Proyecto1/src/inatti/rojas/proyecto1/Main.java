@@ -40,37 +40,55 @@ public class Main {
         arraySD = new SDProducer[SDProducerNum];
         arrayEnsamblador = new Assembler[EnsambladorNum];
         
+        // <- Semaphores for ButtonProducer -> //
         Semaphore mutexBotones = new Semaphore(1);
-        Semaphore semBotones = new Semaphore(45);
+        Semaphore semBotones = new Semaphore(40);
         Semaphore semEnsambladorBotones = new Semaphore(0);
        
+        // <- Semaphores for ScreenProducer -> //
         
-        Semaphore mutexScreens = new Semaphore(1);
-        Semaphore semScreens = new Semaphore(1);
-        Semaphore semEnsambladorScreens = new Semaphore(1);
+        // <- Semaphores for NormalScreen -> //
+        Semaphore mutexNormalScreens = new Semaphore(1);
+        Semaphore semNormalScreens = new Semaphore(20);
+        Semaphore semEnsambladorNormalScreens = new Semaphore(0);
         
+        // <- Semaphores for TouchScreen -> //
+        Semaphore mutexTouchScreens = new Semaphore(1);
+        Semaphore semTouchScreens = new Semaphore(20);
+        Semaphore semEnsambladorTouchScreens = new Semaphore(0);
+        
+        // <- Semaphores for  -> //
         Semaphore mutexJoysticks = new Semaphore(1);
-        Semaphore semJoysticks = new Semaphore(1);
-        Semaphore semEnsambladorJoysticks = new Semaphore(1);
+        Semaphore semJoysticks = new Semaphore(20);
+        Semaphore semEnsambladorJoysticks = new Semaphore(0);
         
         Semaphore mutexSD = new Semaphore(1);
-        Semaphore semSD = new Semaphore(1);
-        Semaphore semEnsambladorSD = new Semaphore(1);
+        Semaphore semSD = new Semaphore(20);
+        Semaphore semEnsambladorSD = new Semaphore(0);
         
         Semaphore mutexEnsamblador = new Semaphore(1);
+        Semaphore semConsolas = new Semaphore(0);
         
-        Semaphore mutexDays = new Semaphore(1);
-        
-        ButtonProducer button = new ButtonProducer(mutexBotones, semBotones, dayDuration, semEnsambladorBotones);
-        ScreenProducer screen = new ScreenProducer(mutexScreens, semScreens, dayDuration, semEnsambladorScreens);
+
+        ButtonProducer button = new ButtonProducer(dayDuration, mutexBotones, semBotones, semEnsambladorBotones);
+        ScreenProducer screen = new ScreenProducer(dayDuration, mutexNormalScreens, semNormalScreens, semEnsambladorNormalScreens, mutexTouchScreens, semTouchScreens, semEnsambladorTouchScreens);
         JoystickProducer joystick = new JoystickProducer(mutexJoysticks, semJoysticks, dayDuration, semEnsambladorJoysticks);
         SDProducer sd = new SDProducer(mutexSD, semSD, dayDuration, semEnsambladorSD);
+        //Ensamblador ensamblador = new Ensamblador (dayDuration, mutexEnsamblador, semBotones, semScreens,semJoysticks,semEnsambladorSD);
+        
+        Assembler ensamblador = new Assembler(dayDuration, mutexEnsamblador,
+                                    mutexBotones, semEnsambladorBotones, 
+                                    mutexNormalScreens, semEnsambladorNormalScreens,
+                                    mutexTouchScreens, semEnsambladorTouchScreens,
+                                    mutexJoysticks, semEnsambladorJoysticks,
+                                    mutexSD, semEnsambladorSD,
+                                    semConsolas);
         
         button.start();
-       // screen.start();
-        //joystick.start();
-        //sd.start();
-        //ensamblador.start();
+        screen.start();
+        joystick.start();
+        sd.start();
+        ensamblador.start();
         
     }
     

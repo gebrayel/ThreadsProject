@@ -22,7 +22,7 @@ public class JoystickProducer extends Thread{
         while(true){
             if (!this.stop){
                 try{
-                semJoystick.acquire(3);
+                semJoystick.acquire();
                 Thread.sleep(Math.round((dayDuration*1000)/dailyProduction));
                 mutex.acquire();
                 Main.Joysticks++;

@@ -13,7 +13,7 @@ public class SDProducer extends Thread{
     private Semaphore semEnsamblador;
     private boolean stop;
     
-    public SDProducer (Semaphore mutex, Semaphore semBotones, int dayDuration, Semaphore semEnsamblador){
+    public SDProducer (Semaphore mutex, Semaphore semSD, int dayDuration, Semaphore semEnsamblador){
         this.dayDuration = dayDuration;
         this.semSD = semSD;
         this.mutex = mutex;
@@ -24,7 +24,7 @@ public class SDProducer extends Thread{
         while(true){
             if (!this.stop){
                 try{
-                semSD.acquire(3);
+                semSD.acquire();
                 Thread.sleep(Math.round((dayDuration*1000)/dailyProduction));
                 mutex.acquire();
                 Main.SD++;
