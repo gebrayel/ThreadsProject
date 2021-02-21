@@ -20,7 +20,7 @@ public class Main {
     static ScreenProducer arrayScreens [];
     static JoystickProducer arrayJoysticks [];
     static SDProducer arraySD [];
-    static Ensamblador arrayEnsamblador [];
+    static Assembler arrayEnsamblador [];
     
     /*Numero de productores maximos*/
     static int buttonProducerNum = 1;
@@ -38,33 +38,39 @@ public class Main {
         arrayScreens = new ScreenProducer[ScreenProducerNum];
         arrayJoysticks = new JoystickProducer[JoystickProducerNum];
         arraySD = new SDProducer[SDProducerNum];
-        arrayEnsamblador = new Ensamblador[EnsambladorNum];
+        arrayEnsamblador = new Assembler[EnsambladorNum];
         
         Semaphore mutexBotones = new Semaphore(1);
+        Semaphore semBotones = new Semaphore(45);
+        Semaphore semEnsambladorBotones = new Semaphore(0);
+       
+        
         Semaphore mutexScreens = new Semaphore(1);
-        Semaphore mutexJoysticks = new Semaphore(1);
-        Semaphore mutexSD = new Semaphore(1);
-        Semaphore mutexEnsamblador = new Semaphore(1);
-        Semaphore semBotones = new Semaphore(1);
         Semaphore semScreens = new Semaphore(1);
-        Semaphore semJoysticks = new Semaphore(1);
-        Semaphore semSD = new Semaphore(1);
-        Semaphore semEnsambladorBotones = new Semaphore(1);
         Semaphore semEnsambladorScreens = new Semaphore(1);
+        
+        Semaphore mutexJoysticks = new Semaphore(1);
+        Semaphore semJoysticks = new Semaphore(1);
         Semaphore semEnsambladorJoysticks = new Semaphore(1);
+        
+        Semaphore mutexSD = new Semaphore(1);
+        Semaphore semSD = new Semaphore(1);
         Semaphore semEnsambladorSD = new Semaphore(1);
+        
+        Semaphore mutexEnsamblador = new Semaphore(1);
+        
+        Semaphore mutexDays = new Semaphore(1);
         
         ButtonProducer button = new ButtonProducer(mutexBotones, semBotones, dayDuration, semEnsambladorBotones);
         ScreenProducer screen = new ScreenProducer(mutexScreens, semScreens, dayDuration, semEnsambladorScreens);
         JoystickProducer joystick = new JoystickProducer(mutexJoysticks, semJoysticks, dayDuration, semEnsambladorJoysticks);
         SDProducer sd = new SDProducer(mutexSD, semSD, dayDuration, semEnsambladorSD);
-        Ensamblador ensamblador = new Ensamblador (dayDuration, mutexEnsamblador, semBotones, semScreens,semJoysticks,semEnsambladorSD);
         
         button.start();
-        screen.start();
-        joystick.start();
-        sd.start();
-        ensamblador.start();
+       // screen.start();
+        //joystick.start();
+        //sd.start();
+        //ensamblador.start();
         
     }
     
