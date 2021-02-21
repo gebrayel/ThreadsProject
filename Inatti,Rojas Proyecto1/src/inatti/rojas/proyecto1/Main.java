@@ -41,7 +41,7 @@ public class Main {
         arrayEnsamblador = new Assembler[EnsambladorNum];
         
         Semaphore mutexBotones = new Semaphore(1);
-        Semaphore semBotones = new Semaphore(5);
+        Semaphore semBotones = new Semaphore(45);
         Semaphore semEnsambladorBotones = new Semaphore(0);
        
         
@@ -59,11 +59,13 @@ public class Main {
         
         Semaphore mutexEnsamblador = new Semaphore(1);
         
+        Semaphore mutexDays = new Semaphore(1);
+        
         ButtonProducer button = new ButtonProducer(mutexBotones, semBotones, dayDuration, semEnsambladorBotones);
         ScreenProducer screen = new ScreenProducer(mutexScreens, semScreens, dayDuration, semEnsambladorScreens);
         JoystickProducer joystick = new JoystickProducer(mutexJoysticks, semJoysticks, dayDuration, semEnsambladorJoysticks);
         SDProducer sd = new SDProducer(mutexSD, semSD, dayDuration, semEnsambladorSD);
-        //Assembler ensamblador = new Assembler (dayDuration, mutexEnsamblador, semBotones, semScreens,semJoysticks,semEnsambladorSD);
+
         
         button.start();
        // screen.start();

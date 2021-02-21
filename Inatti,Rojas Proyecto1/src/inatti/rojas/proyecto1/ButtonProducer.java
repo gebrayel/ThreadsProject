@@ -25,13 +25,14 @@ public class ButtonProducer extends Thread {
         while (true) {
             if (!this.stop) {
                 try {
-                    semBotones.acquire(3);
+                    semBotones.acquire();
                     Thread.sleep(Math.round((dayDuration * 1000) / dailyProduce));
                     mutex.acquire();
                     Main.Buttons++;
                     System.out.println("Boton" + Main.Buttons);
                     mutex.release();
                     semEnsamblador.release();
+                    
                 } catch (Exception e) {
 
                 }
