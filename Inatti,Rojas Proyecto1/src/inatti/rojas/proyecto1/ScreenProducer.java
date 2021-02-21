@@ -1,11 +1,12 @@
 package inatti.rojas.proyecto1;
+import java.util.concurrent.Semaphore;
 
 public class ScreenProducer extends Thread{
     
     private int dayDuration;
     private double dailyProduce = 1;
     
-    public ScreenProducer(int dayDuration) {
+    public ScreenProducer(Semaphore mutex, Semaphore semBotones, int dayDuration, Semaphore semEnsamblador) {
         this.dayDuration = dayDuration;
     }
     

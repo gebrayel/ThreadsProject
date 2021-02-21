@@ -1,12 +1,13 @@
 
 package inatti.rojas.proyecto1;
+import java.util.concurrent.Semaphore;
 
 public class JoystickProducer extends Thread{
     
     private int dayDuration;
     private double dailyProduction = 0.5;
     
-    public JoystickProducer (int dayDuration){
+    public JoystickProducer (Semaphore mutex, Semaphore semBotones, int dayDuration, Semaphore semEnsamblador){
         this.dayDuration = dayDuration;
     }
     

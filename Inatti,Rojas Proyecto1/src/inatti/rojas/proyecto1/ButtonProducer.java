@@ -1,11 +1,12 @@
 package inatti.rojas.proyecto1;
+import java.util.concurrent.Semaphore;
 
 public class ButtonProducer extends Thread{
     
     private int dayDuration;
     private double dailyProduce = 2;
     
-    public ButtonProducer(int dayDuration) {
+    public ButtonProducer(Semaphore mutex, Semaphore semBotones, int dayDuration, Semaphore semEnsamblador) {
         this.dayDuration = dayDuration;
     }
     
