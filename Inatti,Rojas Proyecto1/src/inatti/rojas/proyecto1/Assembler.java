@@ -7,10 +7,10 @@ public class Assembler extends Thread {
     private boolean stop;
     private double dailyProduce = 1;
     private int buttons = 5;
-    private int normalScreen = 1;
-    private int touchScreen = 1;
-    private int joystick = 2;
-    private int SD = 1;
+    private int normalScreens = 1;
+    private int touchScreens = 1;
+    private int joysticks = 2;
+    private int SDs = 1;
     private Semaphore mutexEnsamblador;
     
     private Semaphore mutexBotones;
@@ -22,12 +22,20 @@ public class Assembler extends Thread {
     private Semaphore mutexTouchScreens;
     private Semaphore semEnsambladorTouchScreens;
     
+    private Semaphore mutexJoysticks;
+    private Semaphore semEnsambladorJoysticks;
+    
+    private Semaphore mutexSD;
+    private Semaphore semEnsambladorSD;
+    
     private Semaphore semConsolas;
 
     public Assembler(int dayDuration, Semaphore mutexEnsamblador, 
                     Semaphore mutexBotones, Semaphore semEnsambladorBotones, 
                     Semaphore mutexNormalScreens, Semaphore semEnsambladorNormalScreens,
                     Semaphore mutexTouchScreens, Semaphore semEnsambladorTouchScreens, 
+                    Semaphore mutexJoysticks, Semaphore semEnsambladorJoysticks, 
+                    Semaphore mutexSD, Semaphore semEnsambladorSD, 
                     Semaphore semConsolas) {
         
         this.dayDuration = dayDuration;
@@ -42,6 +50,12 @@ public class Assembler extends Thread {
         this.mutexTouchScreens = mutexTouchScreens;
         this.semEnsambladorTouchScreens = semEnsambladorTouchScreens;
         
+        this.mutexJoysticks = mutexJoysticks;
+        this.semEnsambladorJoysticks = semEnsambladorJoysticks;
+        
+        this.mutexSD = mutexSD;
+        this.semEnsambladorSD = semEnsambladorSD;
+        
         this.semConsolas = semConsolas;
     }
 
@@ -51,19 +65,28 @@ public class Assembler extends Thread {
                 try {
                     semEnsambladorBotones.acquire(buttons);
                     mutexBotones.acquire();
-                    Main.Buttons-=5;
+                    Main.Buttons-=buttons;
                     mutexBotones.release();
                     
-                    semEnsambladorNormalScreens.acquire(normalScreen);
+                    semEnsambladorNormalScreens.acquire(normalScreens);
                     mutexNormalScreens.acquire();
-                    Main.NormalScreens--;
+                    Main.NormalScreens-=normalScreens;
                     mutexNormalScreens.release();
                     
-                    semEnsambladorTouchScreens.acquire(touchScreen);
+                    semEnsambladorTouchScreens.acquire(touchScreens);
                     mutexTouchScreens.acquire();
-                    Main.TouchScreens--;
+                    Main.TouchScreens-=touchScreens;
                     mutexTouchScreens.release();
                     
+                    semEnsambladorJoysticks.acquire(joysticks);
+                    mutexJoysticks.acquire();
+                    Main.Joysticks-=joysticks;
+                    mutexJoysticks.release();
+                    
+                    semEnsambladorSD.acquire(SDs);
+                    mutexSD.acquire();
+                    Main.SD -= SDs;
+                    mutexSD.release();
                     
                     mutexEnsamblador.acquire();
                     Thread.sleep(Math.round((dayDuration * 1000) / dailyProduce));

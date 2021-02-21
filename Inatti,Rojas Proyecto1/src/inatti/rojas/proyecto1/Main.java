@@ -59,16 +59,17 @@ public class Main {
         
         // <- Semaphores for  -> //
         Semaphore mutexJoysticks = new Semaphore(1);
-        Semaphore semJoysticks = new Semaphore(1);
-        Semaphore semEnsambladorJoysticks = new Semaphore(1);
+        Semaphore semJoysticks = new Semaphore(20);
+        Semaphore semEnsambladorJoysticks = new Semaphore(0);
         
         Semaphore mutexSD = new Semaphore(1);
-        Semaphore semSD = new Semaphore(1);
-        Semaphore semEnsambladorSD = new Semaphore(1);
+        Semaphore semSD = new Semaphore(20);
+        Semaphore semEnsambladorSD = new Semaphore(0);
         
         Semaphore mutexEnsamblador = new Semaphore(1);
         Semaphore semConsolas = new Semaphore(0);
         
+
         ButtonProducer button = new ButtonProducer(dayDuration, mutexBotones, semBotones, semEnsambladorBotones);
         ScreenProducer screen = new ScreenProducer(dayDuration, mutexNormalScreens, semNormalScreens, semEnsambladorNormalScreens, mutexTouchScreens, semTouchScreens, semEnsambladorTouchScreens);
         JoystickProducer joystick = new JoystickProducer(mutexJoysticks, semJoysticks, dayDuration, semEnsambladorJoysticks);
@@ -79,13 +80,14 @@ public class Main {
                                     mutexBotones, semEnsambladorBotones, 
                                     mutexNormalScreens, semEnsambladorNormalScreens,
                                     mutexTouchScreens, semEnsambladorTouchScreens,
+                                    mutexJoysticks, semEnsambladorJoysticks,
+                                    mutexSD, semEnsambladorSD,
                                     semConsolas);
         
         button.start();
         screen.start();
-        
-        //joystick.start();
-        //sd.start();
+        joystick.start();
+        sd.start();
         ensamblador.start();
         
     }

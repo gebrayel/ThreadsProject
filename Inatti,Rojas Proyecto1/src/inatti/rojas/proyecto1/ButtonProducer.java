@@ -32,6 +32,7 @@ public class ButtonProducer extends Thread {
                     System.out.println("Boton" + Main.Buttons);
                     mutex.release();
                     semEnsamblador.release();
+                    
                 } catch (Exception e) {
 
                 }
