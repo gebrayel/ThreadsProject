@@ -41,18 +41,23 @@ public class Main {
         arrayEnsamblador = new Ensamblador[EnsambladorNum];
         
         Semaphore mutexBotones = new Semaphore(1);
+        Semaphore semBotones = new Semaphore(5);
+        Semaphore semEnsambladorBotones = new Semaphore(0);
+       
+        
         Semaphore mutexScreens = new Semaphore(1);
-        Semaphore mutexJoysticks = new Semaphore(1);
-        Semaphore mutexSD = new Semaphore(1);
-        Semaphore mutexEnsamblador = new Semaphore(1);
-        Semaphore semBotones = new Semaphore(1);
         Semaphore semScreens = new Semaphore(1);
-        Semaphore semJoysticks = new Semaphore(1);
-        Semaphore semSD = new Semaphore(1);
-        Semaphore semEnsambladorBotones = new Semaphore(1);
         Semaphore semEnsambladorScreens = new Semaphore(1);
+        
+        Semaphore mutexJoysticks = new Semaphore(1);
+        Semaphore semJoysticks = new Semaphore(1);
         Semaphore semEnsambladorJoysticks = new Semaphore(1);
+        
+        Semaphore mutexSD = new Semaphore(1);
+        Semaphore semSD = new Semaphore(1);
         Semaphore semEnsambladorSD = new Semaphore(1);
+        
+        Semaphore mutexEnsamblador = new Semaphore(1);
         
         ButtonProducer button = new ButtonProducer(mutexBotones, semBotones, dayDuration, semEnsambladorBotones);
         ScreenProducer screen = new ScreenProducer(mutexScreens, semScreens, dayDuration, semEnsambladorScreens);
@@ -61,10 +66,10 @@ public class Main {
         Ensamblador ensamblador = new Ensamblador (dayDuration, mutexEnsamblador, semBotones, semScreens,semJoysticks,semEnsambladorSD);
         
         button.start();
-        screen.start();
-        joystick.start();
-        sd.start();
-        ensamblador.start();
+       // screen.start();
+        //joystick.start();
+        //sd.start();
+        //ensamblador.start();
         
     }
     

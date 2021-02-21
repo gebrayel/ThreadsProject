@@ -1,30 +1,50 @@
 package inatti.rojas.proyecto1;
+
 import java.util.concurrent.Semaphore;
 
 public class ButtonProducer extends Thread {
 
     private int dayDuration;
     private double dailyProduce = 2;
-    public Semaphore semaphore; /*not neccesary bro*/
+    private Semaphore mutex;
+    private Semaphore semBotones;
+    private Semaphore semEnsamblador;
+    private boolean stop;
     
     public ButtonProducer(Semaphore mutex, Semaphore semBotones, int dayDuration, Semaphore semEnsamblador/*, Semaphore semaphore*/) {
 
         this.dayDuration = dayDuration;
-        this.semaphore = semaphore;
+        this.mutex = mutex;
+        this.semBotones = semBotones;
+        this.semEnsamblador = semEnsamblador;
+        this.stop = false;
+        
     }
 
     public void run() {
         while (true) {
-//            if (semaphore.y < semaphore.storage) {
+            if (!this.stop) {
                 try {
+                    semBotones.acquire(3);
                     Thread.sleep(Math.round((dayDuration * 1000) / dailyProduce));
+                    mutex.acquire();
                     Main.Buttons++;
                     System.out.println("Boton" + Main.Buttons);
+                    mutex.release();
+                    semEnsamblador.release();
                 } catch (Exception e) {
 
                 }
-//            }
+            }
         }
     }
 
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+    
 }
