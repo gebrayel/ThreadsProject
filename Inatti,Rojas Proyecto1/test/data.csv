@@ -9,7 +9,7 @@ SDCardStorage,15
 <--/--...PRODUCERS...--/-->
 buttonProducers,3
 screenProducers,4
-joystickProducers,3
+joystickProducers,4
 SDCardProducers,4
 <--/--...MAXPRODUCERS...--/-->
 maxButtonsProducers,5
