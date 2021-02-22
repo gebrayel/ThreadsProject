@@ -1,4 +1,4 @@
-package inatti.rojas.proyecto1;
+package inatti.rojas.Classes;
 
 public class Boss extends Thread {
     

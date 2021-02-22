@@ -1,5 +1,6 @@
-package inatti.rojas.proyecto1;
+package Classes;
 
+import Windows.*;
 import java.util.concurrent.Semaphore;
 
 public class ScreenProducer extends Thread {
@@ -32,8 +33,9 @@ public class ScreenProducer extends Thread {
                     semNormalScreens.acquire();
                     Thread.sleep(Math.round((dayDuration * 1000) / dailyProduce));
                         mutexNormalScreens.acquire();
-                        Main.NormalScreens++;
-                        System.out.println("Normal" + Main.NormalScreens);
+                        Menu.NormalScreens++;
+                        Menu.NormalScreenStorage.setText(Integer.toString(Menu.NormalScreens));
+                        Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "Pantalla Normal -> " + Menu.NormalScreens + "\n");
                         mutexNormalScreens.release();
                     semEnsambladorNormalScreens.release();
                     
@@ -42,8 +44,9 @@ public class ScreenProducer extends Thread {
                     semTouchScreens.acquire();
                     Thread.sleep(Math.round((dayDuration * 1000) / dailyProduce));
                     mutexTouchScreens.acquire();
-                    Main.TouchScreens++;
-                    System.out.println("Tactil" + Main.TouchScreens);
+                        Menu.TouchScreens++;
+                        Menu.TouchScreenStorage.setText(Integer.toString(Menu.TouchScreens));
+                        Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "Pantalla Táctil -> " + Menu.TouchScreens + "\n");
                     mutexTouchScreens.release();
                     semEnsambladorTouchScreens.release();
                     

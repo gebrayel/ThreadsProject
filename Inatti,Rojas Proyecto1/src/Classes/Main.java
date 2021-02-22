@@ -1,4 +1,4 @@
-package inatti.rojas.proyecto1;
+package Classes;
 import java.util.concurrent.Semaphore;
 public class Main {
 
@@ -44,8 +44,6 @@ public class Main {
         Semaphore mutexBotones = new Semaphore(1);
         Semaphore semBotones = new Semaphore(40);
         Semaphore semEnsambladorBotones = new Semaphore(0);
-       
-        // <- Semaphores for ScreenProducer -> //
         
         // <- Semaphores for NormalScreen -> //
         Semaphore mutexNormalScreens = new Semaphore(1);
@@ -57,38 +55,45 @@ public class Main {
         Semaphore semTouchScreens = new Semaphore(20);
         Semaphore semEnsambladorTouchScreens = new Semaphore(0);
         
-        // <- Semaphores for  -> //
+        // <- Semaphores for Joystick-> //
         Semaphore mutexJoysticks = new Semaphore(1);
         Semaphore semJoysticks = new Semaphore(20);
         Semaphore semEnsambladorJoysticks = new Semaphore(0);
         
+        // <- Semaphores for SDCard-> //
         Semaphore mutexSD = new Semaphore(1);
         Semaphore semSD = new Semaphore(20);
         Semaphore semEnsambladorSD = new Semaphore(0);
         
         Semaphore mutexEnsamblador = new Semaphore(1);
-        Semaphore semConsolas = new Semaphore(0);
-        
 
         ButtonProducer button = new ButtonProducer(dayDuration, mutexBotones, semBotones, semEnsambladorBotones);
         ScreenProducer screen = new ScreenProducer(dayDuration, mutexNormalScreens, semNormalScreens, semEnsambladorNormalScreens, mutexTouchScreens, semTouchScreens, semEnsambladorTouchScreens);
-        JoystickProducer joystick = new JoystickProducer(mutexJoysticks, semJoysticks, dayDuration, semEnsambladorJoysticks);
-        SDProducer sd = new SDProducer(mutexSD, semSD, dayDuration, semEnsambladorSD);
+        //JoystickProducer joystick = new JoystickProducer(mutexJoysticks, semJoysticks, dayDuration, semEnsambladorJoysticks);
+        //SDProducer sd = new SDProducer(mutexSD, semSD, dayDuration, semEnsambladorSD);
         //Ensamblador ensamblador = new Ensamblador (dayDuration, mutexEnsamblador, semBotones, semScreens,semJoysticks,semEnsambladorSD);
         
-        Assembler ensamblador = new Assembler(dayDuration, mutexEnsamblador,
+        /*Assembler ensamblador = new Assembler(dayDuration, mutexEnsamblador,
                                     mutexBotones, semEnsambladorBotones, 
                                     mutexNormalScreens, semEnsambladorNormalScreens,
                                     mutexTouchScreens, semEnsambladorTouchScreens,
                                     mutexJoysticks, semEnsambladorJoysticks,
-                                    mutexSD, semEnsambladorSD,
-                                    semConsolas);
+                                    mutexSD, semEnsambladorSD);
+        */
+        Functions f = new Functions();
+        String [] txt = f.readTXT();
+        String [] data = f.separateData(txt);
         
-        button.start();
-        screen.start();
-        joystick.start();
-        sd.start();
-        ensamblador.start();
+        for (int i = 0; i < data.length; i++) {
+            System.out.println(data[i]);
+        }
+      
+        
+        //button.start();
+        //screen.start();
+//        joystick.start();
+  //      sd.start();
+        //ensamblador.start();
         
     }
     

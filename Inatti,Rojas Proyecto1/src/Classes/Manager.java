@@ -1,4 +1,4 @@
-package inatti.rojas.proyecto1;
+package Classes;
 
 public class Manager extends Thread {
     
