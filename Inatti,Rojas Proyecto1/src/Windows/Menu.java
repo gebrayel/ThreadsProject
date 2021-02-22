@@ -164,6 +164,8 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         Background = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         ActiveSDCardProducer = new javax.swing.JTextField();
         MaxJoystickStorage = new javax.swing.JTextField();
         MaxSDCardProducer = new javax.swing.JTextField();
@@ -225,6 +227,16 @@ public class Menu extends javax.swing.JFrame {
         Background.setBackground(new java.awt.Color(51, 51, 51));
         Background.setMinimumSize(new java.awt.Dimension(100, 100));
         Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("-");
+        Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 30, 30));
+
+        jLabel2.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("-");
+        Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 30, 30));
 
         ActiveSDCardProducer.setEditable(false);
         ActiveSDCardProducer.setBackground(new java.awt.Color(51, 51, 51));
@@ -1328,6 +1340,8 @@ public class Menu extends javax.swing.JFrame {
     public static volatile javax.swing.JTextField SDCardStorage;
     private javax.swing.JTextField TouchScreen;
     public static volatile javax.swing.JTextField TouchScreenStorage;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

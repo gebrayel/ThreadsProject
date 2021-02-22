@@ -1,10 +1,7 @@
-<<<<<<< HEAD:Inatti,Rojas Proyecto1/src/Classes/Boss.java
-package inatti.rojas.Classes;
+package Classes;
 
-=======
-package inatti.rojas.proyecto1;
 import java.util.concurrent.Semaphore;
->>>>>>> 556dd58fd47c37be6695368cbb0005b89148e785:Inatti,Rojas Proyecto1/src/inatti/rojas/proyecto1/Boss.java
+
 public class Boss extends Thread {
     
     private int dayDuration;

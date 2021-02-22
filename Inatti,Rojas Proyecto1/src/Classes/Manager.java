@@ -1,10 +1,7 @@
-<<<<<<< HEAD:Inatti,Rojas Proyecto1/src/Classes/Manager.java
 package Classes;
 
-=======
-package inatti.rojas.proyecto1;
 import java.util.concurrent.Semaphore;
->>>>>>> 556dd58fd47c37be6695368cbb0005b89148e785:Inatti,Rojas Proyecto1/src/inatti/rojas/proyecto1/Manager.java
+
 public class Manager extends Thread {
     
     private int dayDuration;
