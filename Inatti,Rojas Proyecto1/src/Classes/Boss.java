@@ -1,5 +1,6 @@
 package Classes;
 
+import Windows.*;
 import java.util.concurrent.Semaphore;
 
 public class Boss extends Thread {
@@ -7,25 +8,26 @@ public class Boss extends Thread {
     private int dayDuration;
     private double sleepTime=24/18f;
     private double workingTime=24/6f;
-    private Semaphore semDaysforDeploy;
-    public Boss(int dayDuration, Semaphore semDaysforDeploy){
+    private Semaphore semDaysForDispatch;
+    
+    public Boss(int dayDuration, Semaphore semDaysForDispatch){
         
         this.dayDuration = dayDuration;
-        this.semDaysforDeploy = semDaysforDeploy;
+        this.semDaysForDispatch = semDaysForDispatch;
         
     }
     
     public void run(){
         while(true){
-            
             try{
-                System.out.println("el boss a mimir");
+                Menu.BossStatus.setText("Mimido");
                 Thread.sleep(Math.round((dayDuration*1000)/sleepTime));
-                System.out.println("el boss a chambear");
-                semDaysforDeploy.acquire();
-                Main.DaysforDeploy--;
+                semDaysForDispatch.acquire();
+                Menu.BossStatus.setText("Chambea");
                 Thread.sleep(Math.round((dayDuration*1000)/workingTime));
-                semDaysforDeploy.release();
+                Menu.currentDispatch--;
+                Menu.CurrentDispatch.setText(Integer.toString(Menu.currentDispatch));
+                semDaysForDispatch.release();
                 
             }catch(Exception e){
                 System.out.println("pelo bola el boss");

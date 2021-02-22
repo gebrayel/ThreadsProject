@@ -1,6 +1,6 @@
 <--/--...TIME...--/-->
-dayDuration,5
-daysForDispatch,40
+dayDuration,2
+daysForDispatch,8
 <--/--...STORAGE...--/-->
 buttonStorage,45
 screenStorage,40

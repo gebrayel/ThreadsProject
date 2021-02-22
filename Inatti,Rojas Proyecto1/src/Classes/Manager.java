@@ -1,5 +1,6 @@
 package Classes;
 
+import Windows.*;
 import java.util.concurrent.Semaphore;
 
 public class Manager extends Thread {
@@ -19,16 +20,19 @@ public class Manager extends Thread {
         while(true){
             
             try{
-                System.out.println("el boss a mimir");
+                Menu.ManagerStatus.setText("Mimido");
                 Thread.sleep(Math.round((dayDuration*1000)/sleepTime));
-                System.out.println("el boss a chambear");
                 semDaysforDeploy.acquire();
-                if (Main.DaysforDeploy == 0){
-                    Main.DaysforDeploy+=loteDuration; 
-                    System.out.println("Se acabo lo que se daba");
+                Menu.ManagerStatus.setText("Chambea");
+                if (Menu.currentDispatch == 0){
+                    Menu.currentDispatch += loteDuration; 
+                    Menu.TotalConsoles += Menu.Consoles;
+                    Menu.TotalConsole.setText(Integer.toString(Menu.TotalConsoles));
+                    Menu.OutputConsole.setText("<-Despliegue de " + Menu.Consoles + "->\n");
+                    Menu.Consoles = 0;
+                    Menu.ConsoleStorage.setText(Integer.toString(Menu.Consoles));
                 }
                 semDaysforDeploy.release();
-                
             }catch(Exception e){
                 System.out.println("pelo bola el boss");
             }
