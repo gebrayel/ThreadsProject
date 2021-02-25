@@ -20,7 +20,7 @@ public class Boss extends Thread {
     public void run(){
         while(true){
             try{
-                Menu.BossStatus.setText("😴");
+                Menu.BossStatus.setText("Mimido");
                 Thread.sleep(Math.round((dayDuration*1000)/sleepTime));
                 semDaysForDispatch.acquire();
                 Menu.BossStatus.setText("Chambea");
