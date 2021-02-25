@@ -68,59 +68,76 @@ public class Assembler extends Thread {
 
     public void run() {
         while (true) {
-            if (!stop) {
+            if (!this.stop) {
                 try {
                     semAssemblerButtons.acquire(buttons);
+                    
+                    semAssemblerNormalScreens.acquire(normalScreens);
+                    
+                    semAssemblerTouchScreens.acquire(touchScreens);
+
+                    semAssemblerJoysticks.acquire(joysticks);
+
+                    semAssemblerSDCards.acquire(SDCards);
+                    
                     mutexButtons.acquire();
                     Menu.Buttons -= buttons;
                     Menu.ButtonStorage.setText(Integer.toString(Menu.Buttons));
-                    Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "Retirados -> " + buttons + " botones\nBotones restantes -> " + Menu.Buttons + "\n");
+                    Menu.OutputButtons.setText(Menu.OutputButtons.getText() + "Retirados -> " + buttons + " botones\nBotones restantes -> " + Menu.Buttons + "\n");
                     mutexButtons.release();
                     semButtons.release(buttons);
 
-                    semAssemblerNormalScreens.acquire(normalScreens);
                     mutexNormalScreens.acquire();
                     Menu.NormalScreens -= normalScreens;
                     Menu.NormalScreenStorage.setText(Integer.toString(Menu.NormalScreens));
-                    Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "Retirados -> " + normalScreens + " pantallas normales\nPantallas normales restantes -> " + Menu.NormalScreens + "\n");
+                    Menu.OutputNormalScreens.setText(Menu.OutputNormalScreens.getText() + "Retirados -> " + normalScreens + " pantallas normales\nPantallas normales restantes -> " + Menu.NormalScreens + "\n");
                     mutexNormalScreens.release();
                     semNormalScreens.release(normalScreens);
                     
-                    semAssemblerTouchScreens.acquire(touchScreens);
                     mutexTouchScreens.acquire();
                     Menu.TouchScreens -= touchScreens;
                     Menu.TouchScreenStorage.setText(Integer.toString(Menu.TouchScreens));
-                    Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "Retirados -> " + touchScreens + " pantallas normales\nPantallas táctiles restantes -> " + Menu.TouchScreens + "\n");
+                    Menu.OutputTouchScreens.setText(Menu.OutputTouchScreens.getText() + "Retirados -> " + touchScreens + " pantallas normales\nPantallas táctiles restantes -> " + Menu.TouchScreens + "\n");
                     mutexTouchScreens.release();
                     semTouchScreens.release(touchScreens);
 
-                    semAssemblerJoysticks.acquire(joysticks);
                     mutexJoysticks.acquire();
                     Menu.Joysticks -= joysticks;
                     Menu.JoystickStorage.setText(Integer.toString(Menu.Joysticks));
-                    Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "Retirados -> " + joysticks + " joysticks\nJoysticks restantes -> " + Menu.Joysticks + "\n");
+                    Menu.OutputJoysticks.setText(Menu.OutputJoysticks.getText() + "Retirados -> " + joysticks + " joysticks\nJoysticks restantes -> " + Menu.Joysticks + "\n");
                     mutexJoysticks.release();
                     semJoysticks.release(joysticks);
 
-                    semAssemblerSDCards.acquire(SDCards);
                     mutexSDCards.acquire();
                     Menu.SDCards -= SDCards;
                     Menu.SDCardStorage.setText(Integer.toString(Menu.SDCards));
-                    Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "Retirados -> " + SDCards + " SD Cards\nSD Cards restantes -> " + Menu.SDCards + "\n");
+                    Menu.OutputSDCards.setText(Menu.OutputSDCards.getText() + "Retirados -> " + SDCards + " SD Cards\nSD Cards restantes -> " + Menu.SDCards + "\n");
                     mutexSDCards.release();
                     semSDCards.release(SDCards);
                     
-                    mutexAssembler.acquire();
                     Thread.sleep(Math.round((dayDuration * 1000) / dailyProduce));
+                    mutexAssembler.acquire();
                     Menu.Consoles++;
                     Menu.ConsoleStorage.setText(Integer.toString(Menu.Consoles));
-                    Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "Consolas ensambladas -> " + Menu.Consoles + "\n");
+                    if (Menu.OutputConsoles.getText().split("\n").length != 10) {
+                        Menu.OutputConsoles.setText(Menu.OutputConsoles.getText() + "Consolas -> " + Menu.Consoles + "\n");
+                    }else{
+                        Menu.OutputConsoles.setText("Consolas -> " + Menu.Consoles + "\n");
+                    }
                     mutexAssembler.release();
                 } catch (Exception e) {
 
                 }
             }
         }
+    }
+
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
     }
 
 }

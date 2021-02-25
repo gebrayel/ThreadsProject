@@ -28,7 +28,11 @@ public class SDProducer extends Thread {
                     mutex.acquire();
                     Menu.SDCards++;
                     Menu.SDCardStorage.setText(Integer.toString(Menu.SDCards));
-                    Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "SD Cards -> " + Menu.SDCards + "\n");
+                    if (Menu.OutputSDCards.getText().split("\n").length != 10) {
+                        Menu.OutputSDCards.setText(Menu.OutputSDCards.getText() + "SD Cards -> " + Menu.SDCards + "\n");
+                    }else{
+                        Menu.OutputSDCards.setText("SD Cards -> " + Menu.SDCards + "\n");
+                    }
                     mutex.release();
                     semEnsamblador.release();
                 } catch (Exception e) {
@@ -38,4 +42,13 @@ public class SDProducer extends Thread {
 
         }
     }
+
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+    
 }
