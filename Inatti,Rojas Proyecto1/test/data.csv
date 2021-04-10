@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 <--/--...TIME...--/-->,
 dayDuration,2
 daysForDispatch,8
 <--/--...STORAGE...--/-->,
+=======
+<--/--...TIME...--/-->
+dayDuration,1
+daysForDispatch,48
+<--/--...STORAGE...--/-->
+>>>>>>> 3ab10b1f80eddbd278709d57d2688ceb097184bc
 buttonStorage,45
 screenStorage,40
 joystickStorage,20
 SDCardStorage,15
+<<<<<<< HEAD
 <--/--...PRODUCERS...--/-->,
 buttonProducers,3
 screenProducers,4
@@ -18,4 +26,18 @@ maxJoystickProducers,40
 maxSDCardProducers,6
 <--/--...ASSEMBLER...--/-->,
 assemblers,3
+=======
+<--/--...PRODUCERS...--/-->
+buttonProducers,0
+screenProducers,0
+joystickProducers,0
+SDCardProducers,0
+<--/--...MAXPRODUCERS...--/-->
+maxButtonsProducers,5
+maxScreenProducers,5
+maxJoystickProducers,3
+maxSDCardProducers,6
+<--/--...ASSEMBLER...--/-->
+assemblers,0
+>>>>>>> 3ab10b1f80eddbd278709d57d2688ceb097184bc
 maxAssemblers,5

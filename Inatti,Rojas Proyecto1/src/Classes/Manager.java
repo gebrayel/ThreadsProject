@@ -7,17 +7,19 @@ public class Manager extends Thread {
     
     private int dayDuration;
     private int loteDuration;
+    private boolean stop;
     private double sleepTime=24/2f;
     private Semaphore semDaysforDeploy;
     public Manager(int dayDuration, int loteDuration, Semaphore semDaysforDeploy){
         
         this.dayDuration = dayDuration;
+        this.stop = false;
         this.semDaysforDeploy = semDaysforDeploy;
         this.loteDuration = loteDuration;
     }
     
     public void run(){
-        while(true){
+        while(!this.stop){
             
             try{
                 Menu.ManagerStatus.setText("Mimido");
@@ -28,7 +30,7 @@ public class Manager extends Thread {
                     Menu.currentDispatch += loteDuration; 
                     Menu.TotalConsoles += Menu.Consoles;
                     Menu.TotalConsole.setText(Integer.toString(Menu.TotalConsoles));
-                    Menu.OutputConsole.setText("<-Despliegue de " + Menu.Consoles + "->\n");
+                    Menu.OutputConsoles.setText("<-Despliegue de " + Menu.Consoles + "->\n");
                     Menu.Consoles = 0;
                     Menu.ConsoleStorage.setText(Integer.toString(Menu.Consoles));
                 }
@@ -37,6 +39,14 @@ public class Manager extends Thread {
                 System.out.println("pelo bola el boss");
             }
         }
+    }
+
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
     }
     
 }

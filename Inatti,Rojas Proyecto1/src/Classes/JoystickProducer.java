@@ -28,7 +28,11 @@ public class JoystickProducer extends Thread {
                     mutex.acquire();
                     Menu.Joysticks++;
                     Menu.JoystickStorage.setText(Integer.toString(Menu.Joysticks));
-                    Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "Joysticks -> " + Menu.Joysticks + "\n");
+                    if (Menu.OutputJoysticks.getText().split("\n").length != 10) {
+                        Menu.OutputJoysticks.setText(Menu.OutputJoysticks.getText() + "Joysticks -> " + Menu.Joysticks + "\n");
+                    }else{
+                        Menu.OutputJoysticks.setText("Joysticks -> " + Menu.Joysticks + "\n");
+                    }
                     mutex.release();
                     semEnsamblador.release();
                 } catch (Exception e) {
@@ -39,4 +43,13 @@ public class JoystickProducer extends Thread {
         }
         
     }
+
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+    
 }

@@ -30,7 +30,11 @@ public class ButtonProducer extends Thread {
                 mutex.acquire();
                 Menu.Buttons++;
                 Menu.ButtonStorage.setText(Integer.toString(Menu.Buttons));
-                Menu.OutputConsole.setText(Menu.OutputConsole.getText() + "Botones -> " + Menu.Buttons + "\n");
+                if (Menu.OutputButtons.getText().split("\n").length != 10) {
+                    Menu.OutputButtons.setText(Menu.OutputButtons.getText() + "Botones -> " + Menu.Buttons + "\n");
+                } else {
+                    Menu.OutputButtons.setText("Botones -> " + Menu.Buttons + "\n");
+                }
                 mutex.release();
                 semEnsamblador.release();
 
